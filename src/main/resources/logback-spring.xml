@@ -2,6 +2,14 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
+    <springProperty name="kafkaBootstrapServers" source="spring.kafka.bootstrap-servers"
+                    defaultValue="localhost:9092"/>
+
+    <springProperty name="logbackReceiverPort" source="logback.receiver.port"
+                    defaultValue="9009"/>
+    <springProperty name="logbackReceiverAddress" source="logback.receiver.address"
+                    defaultValue="0.0.0.0"/>
+
     <appender name="KAFKA" class="com.github.danielwegener.logback.kafka.KafkaAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
         <topic>logs</topic>
@@ -17,11 +25,16 @@
         <!-- each <producerConfig> translates to regular kafka-client config (format: key=value) -->
         <!-- producer configs are documented here: https://kafka.apache.org/documentation.html#newproducerconfigs -->
         <!-- bootstrap.servers is the only mandatory producerConfig -->
-        <producerConfig>bootstrap.servers=${spring.kafka.bootstrap-servers}</producerConfig>
+        <producerConfig>bootstrap.servers=${kafkaBootstrapServers}</producerConfig>
 
         <!-- this is the fallback appender if kafka is not available. -->
         <appender-ref ref="CONSOLE" />
     </appender>
+
+    <receiver class="ch.qos.logback.classic.net.server.ServerSocketReceiver">
+        <address>${logbackReceiverAddress}</address>
+        <port>${logbackReceiverPort}</port>
+    </receiver>
 
     <root level="INFO">
         <appender-ref ref="KAFKA" />
