@@ -4,6 +4,8 @@
 
     <springProperty name="kafkaBootstrapServers" source="spring.kafka.bootstrap-servers"
                     defaultValue="localhost:9092"/>
+    <springProperty name="kafkaTopic" source="logback.kafka.topic"
+                    defaultValue="logs"/>
 
     <springProperty name="logbackReceiverPort" source="logback.receiver.port"
                     defaultValue="9009"/>
@@ -12,7 +14,7 @@
 
     <appender name="KAFKA" class="com.github.danielwegener.logback.kafka.KafkaAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
-        <topic>logs</topic>
+        <topic>${kafkaTopic}</topic>
         <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.NoKeyKeyingStrategy" />
         <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />
 

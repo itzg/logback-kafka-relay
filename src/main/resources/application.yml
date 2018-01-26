@@ -6,3 +6,5 @@ logback:
   receiver:
     port: 9009
     address: 0.0.0.0
+
+logback.kafka.topic: logs
