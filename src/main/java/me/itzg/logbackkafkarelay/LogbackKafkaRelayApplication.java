@@ -1,6 +1,7 @@
 package me.itzg.logbackkafkarelay;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -24,6 +25,8 @@ public class LogbackKafkaRelayApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments applicationArguments) throws Exception {
+        MDC.put("applicationName", env.getProperty("spring.application.name", "relay"));
+
 		log.info("Running relay. Logback receiver listening={}:{}, Kafka bootstrap servers={}",
                  env.getProperty("logback.receiver.address"),
                  env.getProperty("logback.receiver.port"),
