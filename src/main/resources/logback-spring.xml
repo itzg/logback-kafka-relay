@@ -12,8 +12,13 @@
     <springProperty name="logbackReceiverAddress" source="logback.receiver.address"
                     defaultValue="0.0.0.0"/>
 
+    <springProperty name="appName" source="spring.application.name" defaultValue="relay"/>
+    <springProperty name="appIndex" source="spring.application.index" defaultValue="0"/>
+
     <appender name="KAFKA" class="com.github.danielwegener.logback.kafka.KafkaAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"via":"${appName}-${appIndex}"}</customFields>
+        </encoder>
         <topic>${kafkaTopic}</topic>
         <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.NoKeyKeyingStrategy" />
         <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />
