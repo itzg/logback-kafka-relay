@@ -15,6 +15,12 @@
     <springProperty name="appName" source="spring.application.name" defaultValue="relay"/>
     <springProperty name="appIndex" source="spring.application.index" defaultValue="0"/>
 
+    <springProperty name="sslTruststoreLocation" source="spring.kafka.ssl.truststore-location"/>
+    <springProperty name="sslTruststorePassword" source="spring.kafka.ssl.truststore-password"/>
+    <springProperty name="sslKeystoreLocation" source="spring.kafka.ssl.keystore-location"/>
+    <springProperty name="sslKeystorePassword" source="spring.kafka.ssl.keystore-password"/>
+    <springProperty name="sslKeyPassword" source="spring.kafka.ssl.key-password"/>
+
     <appender name="KAFKA" class="com.github.danielwegener.logback.kafka.KafkaAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>{"via":"${appName}-${appIndex}"}</customFields>
@@ -23,16 +29,18 @@
         <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.NoKeyKeyingStrategy" />
         <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />
 
-        <!-- Optional parameter to use a fixed partition -->
-        <!-- <partition>0</partition> -->
-
-        <!-- Optional parameter to include log timestamps into the kafka message -->
-        <!-- <appendTimestamp>true</appendTimestamp> -->
-
-        <!-- each <producerConfig> translates to regular kafka-client config (format: key=value) -->
-        <!-- producer configs are documented here: https://kafka.apache.org/documentation.html#newproducerconfigs -->
-        <!-- bootstrap.servers is the only mandatory producerConfig -->
         <producerConfig>bootstrap.servers=${kafkaBootstrapServers}</producerConfig>
+
+        <springProfile name="ssl">
+
+
+            <producerConfig>security.protocol=SSL</producerConfig>
+            <producerConfig>ssl.truststore.location=${sslTruststoreLocation}</producerConfig>
+            <producerConfig>ssl.truststore.password=${sslTruststorePassword}</producerConfig>
+            <producerConfig>ssl.keystore.location=${sslKeystoreLocation}</producerConfig>
+            <producerConfig>ssl.keystore.password=${sslKeystorePassword}</producerConfig>
+            <producerConfig>ssl.key.password=${sslKeyPassword}</producerConfig>
+        </springProfile>
 
         <!-- this is the fallback appender if kafka is not available. -->
         <appender-ref ref="CONSOLE" />

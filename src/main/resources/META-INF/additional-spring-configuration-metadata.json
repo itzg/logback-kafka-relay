@@ -15,4 +15,5 @@
       "type": "java.lang.String",
       "description": "The Kafka topic that will contain Logstash-JSON formatted logback entries."
     }
-  ] }
+  ]
+}

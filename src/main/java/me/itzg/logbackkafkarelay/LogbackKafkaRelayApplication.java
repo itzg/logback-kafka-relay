@@ -1,6 +1,7 @@
 package me.itzg.logbackkafkarelay;
 
 import lombok.extern.slf4j.Slf4j;
+import me.itzg.spring.propsource.EnableDockerSecretsPropertySource;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication @Slf4j
+@EnableDockerSecretsPropertySource
 public class LogbackKafkaRelayApplication implements ApplicationRunner {
 
     private final Environment env;

@@ -53,6 +53,12 @@
         </dependency>
 
 		<dependency>
+			<groupId>me.itzg</groupId>
+			<artifactId>spring-propsource-dockersecrets</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -78,5 +84,15 @@
 		</plugins>
 	</build>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-itzgeoff-artifacts</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/itzgeoff/artifacts</url>
+        </repository>
+    </repositories>
 
 </project>
