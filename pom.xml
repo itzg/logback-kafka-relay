@@ -93,6 +93,12 @@
 		</plugins>
 	</build>
 
+    <scm>
+        <connection>scm:git:git@github.com:itzg/logback-kafka-relay.git</connection>
+        <developerConnection>scm:git:git@github.com:itzg/logback-kafka-relay.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <repositories>
         <repository>
             <snapshots>
