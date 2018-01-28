@@ -73,7 +73,7 @@ jobs:
 
       - setup_remote_docker
 
-      - run: mvn -s settings.xml -P dockerize deploy
+      - run: mvn -s settings.xml -Ddockerfile.useMavenSettingsForAuth=true -P dockerize deploy
 
 workflows:
   version: 2
