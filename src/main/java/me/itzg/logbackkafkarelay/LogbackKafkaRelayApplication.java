@@ -1,6 +1,7 @@
 package me.itzg.logbackkafkarelay;
 
 import lombok.extern.slf4j.Slf4j;
+import me.itzg.spring.propsource.dockersecrets.DockerSecretsApplicationListener;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -20,7 +21,9 @@ public class LogbackKafkaRelayApplication implements ApplicationRunner {
     }
 
 	public static void main(String[] args) {
-		SpringApplication.run(LogbackKafkaRelayApplication.class, args);
+        final SpringApplication app = new SpringApplication(LogbackKafkaRelayApplication.class);
+        app.addListeners(new DockerSecretsApplicationListener());
+        app.run(args);
 	}
 
 	@Override
