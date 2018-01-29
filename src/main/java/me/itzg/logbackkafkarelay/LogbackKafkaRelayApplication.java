@@ -30,7 +30,6 @@ public class LogbackKafkaRelayApplication implements ApplicationRunner {
 	public void run(ApplicationArguments applicationArguments) throws Exception {
         MDC.put("applicationName", env.getProperty("spring.application.name", "relay"));
 
-        log.info("Blah is {}", env.getProperty("blah"));
 		log.info("Running relay. Logback receiver listening={}:{}, Kafka bootstrap servers={}",
                  env.getProperty("logback.receiver.address"),
                  env.getProperty("logback.receiver.port"),
