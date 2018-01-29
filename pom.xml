@@ -22,6 +22,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
         <dockerRegistry>registry.hub.docker.com</dockerRegistry>
+        <dockersecrets.version>1.2.0</dockersecrets.version>
     </properties>
 
 	<dependencies>
@@ -55,7 +56,7 @@
 		<dependency>
 			<groupId>me.itzg</groupId>
 			<artifactId>spring-propsource-dockersecrets</artifactId>
-			<version>1.1.0</version>
+			<version>${dockersecrets.version}</version>
 		</dependency>
 
 		<dependency>
